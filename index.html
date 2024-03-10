@@ -40,14 +40,11 @@
         <section class="view-info">
           <div class="history-section flex-column">
             <div class="filters">
-              <span><i class="fa-solid fa-filter"></i> Filter By:</span>
-              <select name="" id="filter-currency"></select>
-              <button
-                class="incomes-filter"
-                id="incomes-filter"
-                onclick="filterData('all')"
+              <span class="filter-title"
+                ><i class="fa-solid fa-filter"></i> Filter By:</span
               >
-                All</button
+              <select name="" id="filter-currency"></select>
+              <button class="all-filter" id="all-filter">All</button
               ><button
                 class="incomes-filter"
                 id="incomes-filter"
@@ -96,6 +93,7 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./scripts/main.js"></script>
   </body>
 </html>

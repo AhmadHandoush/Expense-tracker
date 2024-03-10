@@ -11,24 +11,24 @@ let totalExpense = document.getElementById("esxpense-amount");
 let totalIncomes = document.getElementById("income-amount");
 let incomesFilter = document.getElementById("incomes-filter");
 let expensesFilter = document.getElementById("expenses-filter");
+let allFilter = document.getElementById("all-filter");
 let sum = 0;
 let expenses = 0;
 let incomes = 0;
-let existingTrans =
-  JSON.parse(localStorage.getItem("transactions-lists")) || [];
+let existingTrans = JSON.parse(localStorage.getItem("t-lists")) || [];
 
 // get currencies from api
 const getCurrencies = async () => {
   try {
     const result = await fetch(
-      "https://crowded-cyan-wildebeest.cyclic.app/students/available",
+      "https://rich-erin-angler-hem.cyclic.app/students/available",
       { method: "GET" }
     );
     const response = await result.json();
     response.map((currency) => {
-      const { name, symbol, code } = currency;
-      currencyList.innerHTML += `<option value=${currency.code}>${currency.code}</option>`;
-      filterCurrency.innerHTML += `<option value=${currency.code}>${currency.code}</option>`;
+      const { code } = currency;
+      currencyList.innerHTML += `<option value=${code}>${code}</option>`;
+      filterCurrency.innerHTML += `<option value=${code}>${code}</option>`;
     });
   } catch (error) {
     console.log(error);
@@ -54,57 +54,106 @@ const handleSubmit = (e) => {
 
   existingTrans.push(formData);
 
-  localStorage.setItem("transactions-lists", JSON.stringify(existingTrans));
+  localStorage.setItem("t-lists", JSON.stringify(existingTrans));
 
   window.location.reload();
 };
 
 form.addEventListener("submit", handleSubmit);
 
-let transaction = localStorage.getItem("transactions-lists");
-let data = JSON.parse(transaction);
+let transaction = localStorage.getItem("t-lists");
+let transData = JSON.parse(transaction);
 
-const getData = (data) => {
+const displayData = (data) => {
   if (transaction) {
     data.map((trans, index) => {
       const { description, amountt, type, currency } = trans;
-      histories.innerHTML += ` <li class="history rounded flex">
+
+      histories.innerHTML += ` <li class="history rounded flex" id="history">
         <button class="delete" onclick="deleteItem(${index})">
           <i class="fa-solid fa-trash-can"></i>
         </button>
         <button class="edit">Edit</button>
         <div class="info flex-between flex-items">
           <p>${description}</p>
-          <span>${currency}${amountt}</span>
+          <span>${currency} ${amountt}</span>
         </div>
       </li>`;
 
-      if (type == "Incomes") {
-        sum += Number(amountt);
-        incomes += Number(amountt);
-      } else {
-        sum -= Number(amountt);
-        expenses += Number(amountt);
+      convertCurrency(currency, "USD", type, amountt);
+      let history = document.getElementById("history");
+      if (type === "Incomes") {
+        history.classList.add("history-expenses");
       }
-      totalBalance.textContent = sum;
-      totalExpense.textContent = expenses;
-      totalIncomes.textContent = incomes;
     });
   }
 };
 
-getData(data);
+displayData(transData);
 
 const deleteItem = (index) => {
-  if (confirm("Are you sure you want to delete this user?")) {
+  if (confirm("Are you sure you want to delete this transaction?")) {
     existingTrans.splice(index, 1);
-    localStorage.setItem("transactions-lists", JSON.stringify(existingTrans));
+    localStorage.setItem("t-lists", JSON.stringify(existingTrans));
     window.location.reload();
-    getData();
   }
 };
 
+// filtered by type
 const filterData = (n) => {
-  let filteredItems = existingTrans.filter((item) => item.type == n);
-  getData(filteredItems);
+  let filtered = transData.filter((item) => item.type === n);
+  // if (n == "all") {
+  //   displayData(transData);
+  //   return;
+  // }
+  histories.innerHTML = "";
+  displayData(filtered);
 };
+
+// filtered by currency
+const filterByCurrency = () => {
+  let filtered = transData.filter(
+    (item) => item.currency === filterCurrency.value
+  );
+  histories.innerHTML = "";
+  displayData(filtered);
+};
+filterCurrency.addEventListener("change", filterByCurrency);
+
+// get all
+allFilter.addEventListener("click", function () {
+  histories.innerHTML = "";
+  displayData(transData);
+});
+
+// convert to USD
+function convertCurrency(fromCurrency, toCurrency, type, amount) {
+  const data = {
+    from: fromCurrency,
+    to: toCurrency,
+    amount: amount,
+  };
+
+  fetch("https://rich-erin-angler-hem.cyclic.app/students/convert", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (type == "Incomes") {
+        sum += parseInt(Number(data));
+        incomes += parseInt(Number(data));
+      } else {
+        sum -= parseInt(Number(data));
+        expenses += parseInt(Number(data));
+      }
+      totalBalance.textContent = `$ ${sum}`;
+      totalExpense.textContent = `$ ${expenses}`;
+      totalIncomes.textContent = `$ ${incomes}`;
+    });
+}
