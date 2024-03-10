@@ -14,32 +14,73 @@
     <title>Expense Tracker</title>
   </head>
   <body>
-    <header><h1>Expense Tracker</h1></header>
+    <header class="header flex-center"><h1>Expense Tracker</h1></header>
     <div class="all">
-      <section class="view-info">section2</section>
-      <section class="main">
-        <form action="">
-          <input type="text" name="" id="" />
-          <select name="" id="">
-            <option value="Incomes">Incomes</option>
-            <option value="Expenses">Expenses</option>
-          </select>
-          <input type="text" id="amount" class="amount" />
-          <button class="make" id="make">Make Transaction</button>
-        </form>
-        <div class="history">
-          <h1>History</h1>
-          <ul class="histories">
-            <li class="history">
-              <button class="delete">
-                <i class="fa-solid fa-trash-can"></i> Deleter
-              </button>
-              <button class="edit">Edit</button>
-              <p class="type">salary</p>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <div class="container">
+        <section class="view-info">
+          <div class="total flex-center">
+            <div class="total-value">
+              <h3>total</h3>
+              <h1>$200</h1>
+            </div>
+          </div>
+        </section>
+        <section class="main">
+          <form class="form">
+            <h2>Transaction</h2>
+            <input
+              type="text"
+              name=""
+              id=""
+              placeholder="Salary,House Rend..."
+              class="name rounded"
+            />
+
+            <select name="" id="" class="select rounded">
+              <option value="Incomes">Incomes</option>
+              <option value="Expenses">Expenses</option>
+            </select>
+            <input
+              type="text"
+              id="amount "
+              class="amount rounded"
+              placeholder="Amount"
+            />
+            <select name="curreny" id="currency" class="currency"></select>
+            <button class="make" id="make">Make Transaction</button>
+          </form>
+
+          <div class="history-section flex-column">
+            <h2>History</h2>
+            <ul class="histories flex-column">
+              <li class="history rounded flex">
+                <button class="delete">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+                <button class="edit">Edit</button>
+                <p class="typee">salary</p>
+              </li>
+              <li class="history rounded flex">
+                <button class="delete">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+
+                <button class="edit">Edit</button>
+                <p class="type">salary</p>
+              </li>
+              <li class="history rounded flex">
+                <button class="delete">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+                <button class="edit">Edit</button>
+                <p class="type">salary</p>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
     </div>
+
+    <script src="./scripts/main.js"></script>
   </body>
 </html>
