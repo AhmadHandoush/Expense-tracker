@@ -15,68 +15,76 @@
   </head>
   <body>
     <header class="header flex-center"><h1>Expense Tracker</h1></header>
+    <div class="totals flex">
+      <div class="total-incomes" id="total-incomes">
+        <div>
+          <span>total incomes:</span>
+          <span class="income-amount" id="income-amount">$200</span>
+        </div>
+      </div>
+      <div class="total-expenses" id="total-expenses">
+        <div>
+          <span>total expenses:</span>
+          <span class="expense-amount" id="esxpense-amount">$200</span>
+        </div>
+      </div>
+      <div class="total" id="total">
+        <div>
+          <span>total incomes:</span>
+          <span class="total-amount" id="total-amount">$200</span>
+        </div>
+      </div>
+    </div>
     <div class="all">
       <div class="container">
         <section class="view-info">
-          <div class="total flex-center">
-            <div class="total-value">
-              <h3>total</h3>
-              <h1>$200</h1>
+          <div class="history-section flex-column">
+            <div class="filters">
+              <span><i class="fa-solid fa-filter"></i> Filter By:</span>
+              <select name="" id="filter-currency"></select>
+              <button class="incomes-filter">incomes</button>
+              <button class="expenses-filter">expenses</button>
             </div>
+            <ul class="histories flex-column" id="histories">
+              <!-- <li class="history rounded flex">
+                <button class="delete">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+                <button class="edit">Edit</button>
+                <div class="info flex-between flex-items">
+                  <p>salary</p>
+                  <span>$5000</span>
+                </div>
+              </li> -->
+            </ul>
           </div>
         </section>
         <section class="main">
-          <form class="form">
+          <form class="form" id="form">
             <h2>Transaction</h2>
             <input
               type="text"
               name=""
-              id=""
+              id="description"
               placeholder="Salary,House Rend..."
               class="name rounded"
             />
 
-            <select name="" id="" class="select rounded">
+            <select name="" id="type" class="select rounded">
               <option value="Incomes">Incomes</option>
               <option value="Expenses">Expenses</option>
             </select>
             <input
               type="text"
-              id="amount "
+              id="amount"
               class="amount rounded"
               placeholder="Amount"
             />
             <select name="curreny" id="currency" class="currency"></select>
-            <button class="make" id="make">Make Transaction</button>
+            <button type="submit" class="make" id="make">
+              Make Transaction
+            </button>
           </form>
-
-          <div class="history-section flex-column">
-            <h2>History</h2>
-            <ul class="histories flex-column">
-              <li class="history rounded flex">
-                <button class="delete">
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-                <button class="edit">Edit</button>
-                <p class="typee">salary</p>
-              </li>
-              <li class="history rounded flex">
-                <button class="delete">
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-
-                <button class="edit">Edit</button>
-                <p class="type">salary</p>
-              </li>
-              <li class="history rounded flex">
-                <button class="delete">
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-                <button class="edit">Edit</button>
-                <p class="type">salary</p>
-              </li>
-            </ul>
-          </div>
         </section>
       </div>
     </div>

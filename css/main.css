@@ -127,6 +127,8 @@ header h1 {
   text-align: center;
   width: 100%;
   padding: 10px;
+  width: 700px;
+  background-color: red;
 }
 .history-section h2 {
   margin-bottom: 20px;
@@ -147,7 +149,10 @@ header h1 {
   width: 100%;
   background-color: #dedede;
   border-right: 5px solid var(--main-color);
-  padding: 5px;
+  padding: 20px;
+}
+.history .info {
+  width: 100%;
 }
 .history button {
   padding: 5px 10px;
@@ -158,9 +163,7 @@ header h1 {
   background-color: var(--main-color);
   color: #ffffff;
 }
-.view-info {
-  padding-top: 3rem;
-}
+
 .view-info .total {
   border-bottom: 20px solid var(--main-color);
   border-top: 20px solid var(--main-color);
@@ -168,4 +171,29 @@ header h1 {
   height: 200px;
   border-radius: 50%;
   padding: 20px;
+}
+
+.filters {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.filters select {
+  width: 20%;
+  border: none;
+  outline: nnone;
+  border-radius: 20px;
+  padding: 5px;
+}
+.filters button {
+  width: 20%;
+  border: none;
+  outline: nnone;
+  border-radius: 20px;
+  padding: 5px;
+  cursor: pointer;
+}
+.filters button:hover {
+  background-color: var(--main-color);
+  color: white;
 }
