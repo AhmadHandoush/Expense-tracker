@@ -19,19 +19,19 @@
       <div class="total-incomes" id="total-incomes">
         <div>
           <span>total incomes:</span>
-          <span class="income-amount" id="income-amount">$200</span>
+          <span class="income-amount" id="income-amount"></span>
         </div>
       </div>
       <div class="total-expenses" id="total-expenses">
         <div>
           <span>total expenses:</span>
-          <span class="expense-amount" id="esxpense-amount">$200</span>
+          <span class="expense-amount" id="esxpense-amount"></span>
         </div>
       </div>
       <div class="total" id="total">
         <div>
           <span>total incomes:</span>
-          <span class="total-amount" id="total-amount">$200</span>
+          <span class="total-amount" id="total-amount"></span>
         </div>
       </div>
     </div>
@@ -42,21 +42,28 @@
             <div class="filters">
               <span><i class="fa-solid fa-filter"></i> Filter By:</span>
               <select name="" id="filter-currency"></select>
-              <button class="incomes-filter">incomes</button>
-              <button class="expenses-filter">expenses</button>
+              <button
+                class="incomes-filter"
+                id="incomes-filter"
+                onclick="filterData('all')"
+              >
+                All</button
+              ><button
+                class="incomes-filter"
+                id="incomes-filter"
+                onclick="filterData('Incomes')"
+              >
+                incomes
+              </button>
+              <button
+                class="expenses-filter"
+                id="expenses-filter"
+                onclick="filterData('Expenses')"
+              >
+                expenses
+              </button>
             </div>
-            <ul class="histories flex-column" id="histories">
-              <!-- <li class="history rounded flex">
-                <button class="delete">
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-                <button class="edit">Edit</button>
-                <div class="info flex-between flex-items">
-                  <p>salary</p>
-                  <span>$5000</span>
-                </div>
-              </li> -->
-            </ul>
+            <ul class="histories flex-column" id="histories"></ul>
           </div>
         </section>
         <section class="main">

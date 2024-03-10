@@ -6,12 +6,22 @@ let amount = document.getElementById("amount");
 let type = document.getElementById("type");
 let filterCurrency = document.getElementById("filter-currency");
 let histories = document.getElementById("histories");
+let totalBalance = document.getElementById("total-amount");
+let totalExpense = document.getElementById("esxpense-amount");
+let totalIncomes = document.getElementById("income-amount");
+let incomesFilter = document.getElementById("incomes-filter");
+let expensesFilter = document.getElementById("expenses-filter");
+let sum = 0;
+let expenses = 0;
+let incomes = 0;
+let existingTrans =
+  JSON.parse(localStorage.getItem("transactions-lists")) || [];
 
 // get currencies from api
 const getCurrencies = async () => {
   try {
     const result = await fetch(
-      "https://ivory-ostrich-yoke.cyclic.app/students/available ",
+      "https://crowded-cyan-wildebeest.cyclic.app/students/available",
       { method: "GET" }
     );
     const response = await result.json();
@@ -42,9 +52,6 @@ const handleSubmit = (e) => {
     currency: currency,
   };
 
-  let existingTrans =
-    JSON.parse(localStorage.getItem("transactions-lists")) || [];
-
   existingTrans.push(formData);
 
   localStorage.setItem("transactions-lists", JSON.stringify(existingTrans));
@@ -54,14 +61,15 @@ const handleSubmit = (e) => {
 
 form.addEventListener("submit", handleSubmit);
 
-const getData = () => {
-  let transaction = localStorage.getItem("transactions-lists");
+let transaction = localStorage.getItem("transactions-lists");
+let data = JSON.parse(transaction);
+
+const getData = (data) => {
   if (transaction) {
-    let data = JSON.parse(transaction);
-    data.map((trans) => {
+    data.map((trans, index) => {
       const { description, amountt, type, currency } = trans;
       histories.innerHTML += ` <li class="history rounded flex">
-        <button class="delete">
+        <button class="delete" onclick="deleteItem(${index})">
           <i class="fa-solid fa-trash-can"></i>
         </button>
         <button class="edit">Edit</button>
@@ -70,9 +78,33 @@ const getData = () => {
           <span>${currency}${amountt}</span>
         </div>
       </li>`;
-      console.log(trans);
+
+      if (type == "Incomes") {
+        sum += Number(amountt);
+        incomes += Number(amountt);
+      } else {
+        sum -= Number(amountt);
+        expenses += Number(amountt);
+      }
+      totalBalance.textContent = sum;
+      totalExpense.textContent = expenses;
+      totalIncomes.textContent = incomes;
     });
   }
 };
 
-getData();
+getData(data);
+
+const deleteItem = (index) => {
+  if (confirm("Are you sure you want to delete this user?")) {
+    existingTrans.splice(index, 1);
+    localStorage.setItem("transactions-lists", JSON.stringify(existingTrans));
+    window.location.reload();
+    getData();
+  }
+};
+
+const filterData = (n) => {
+  let filteredItems = existingTrans.filter((item) => item.type == n);
+  getData(filteredItems);
+};
