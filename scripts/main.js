@@ -12,6 +12,9 @@ let totalIncomes = document.getElementById("income-amount");
 let incomesFilter = document.getElementById("incomes-filter");
 let expensesFilter = document.getElementById("expenses-filter");
 let allFilter = document.getElementById("all-filter");
+let from = document.getElementById("from");
+let to = document.getElementById("to");
+let filterAmount = document.getElementById("filter-amount");
 let sum = 0;
 let expenses = 0;
 let incomes = 0;
@@ -81,10 +84,6 @@ const displayData = (data) => {
       </li>`;
 
       convertCurrency(currency, "USD", type, amountt);
-      let history = document.getElementById("history");
-      if (type == "Incomes") {
-        history.classList.add("history-expenses");
-      }
     });
   }
 };
@@ -101,7 +100,7 @@ const deleteItem = (index) => {
 
 // filtered by type
 const filterData = (n) => {
-  let filtered = transData.filter((item) => item.type === n);
+  let filtered = transData.filter((item) => item.type == n);
   histories.innerHTML = "";
   displayData(filtered);
 };
@@ -115,6 +114,17 @@ const filterByCurrency = () => {
   displayData(filtered);
 };
 filterCurrency.addEventListener("change", filterByCurrency);
+
+// filtered by amount
+const filterByAmount = () => {
+  let filtered = transData.filter(
+    (item) => item.amountt >= from.value && item.amountt <= to.value
+  );
+  histories.innerHTML = "";
+  displayData(filtered);
+};
+
+filterAmount.addEventListener("click", filterByAmount);
 
 // get all
 allFilter.addEventListener("click", function () {

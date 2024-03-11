@@ -223,6 +223,32 @@ header h1 {
   background-color: var(--main-color);
   color: white;
 }
+.filters-two {
+  margin-bottom: 5px;
+}
+.filters-two label {
+  color: #ffffff;
+}
+.filter-amount {
+  padding: 10px 20px;
+  background-color: var(--main-color);
+  color: #ffffff;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.filter-amount:hover {
+  opacity: 0.7;
+}
+.filters-two input {
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  padding: 5px;
+  caret-color: var(--main-color);
+}
 .totals {
   width: 80%;
   margin-left: auto;
@@ -287,5 +313,11 @@ header h1 {
   }
   .filters select {
     padding: 1px;
+  }
+  .filters-two label {
+    display: none;
+  }
+  .filters-two input {
+    width: 100px;
   }
 }
