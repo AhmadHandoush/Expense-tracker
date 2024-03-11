@@ -73,7 +73,7 @@ const displayData = (data) => {
         <button class="delete" onclick="deleteItem(${index})">
           <i class="fa-solid fa-trash-can"></i>
         </button>
-        <button class="edit">Edit</button>
+        <button class="edit" onclick="editData(${index})">Edit</button>
         <div class="info flex-between flex-items">
           <p>${description}</p>
           <span>${currency} ${amountt}</span>
@@ -82,7 +82,7 @@ const displayData = (data) => {
 
       convertCurrency(currency, "USD", type, amountt);
       let history = document.getElementById("history");
-      if (type === "Incomes") {
+      if (type == "Incomes") {
         history.classList.add("history-expenses");
       }
     });
@@ -102,10 +102,6 @@ const deleteItem = (index) => {
 // filtered by type
 const filterData = (n) => {
   let filtered = transData.filter((item) => item.type === n);
-  // if (n == "all") {
-  //   displayData(transData);
-  //   return;
-  // }
   histories.innerHTML = "";
   displayData(filtered);
 };
@@ -152,8 +148,37 @@ function convertCurrency(fromCurrency, toCurrency, type, amount) {
         sum -= parseInt(Number(data));
         expenses += parseInt(Number(data));
       }
-      totalBalance.textContent = `$ ${sum}`;
-      totalExpense.textContent = `$ ${expenses}`;
-      totalIncomes.textContent = `$ ${incomes}`;
+      totalBalance.textContent = ` $${sum}`;
+      totalExpense.textContent = ` $${expenses}`;
+      totalIncomes.textContent = ` $${incomes}`;
     });
+}
+
+function editData(index) {
+  const newData = prompt(
+    "Enter new data (e.g., type, amount, currency)",
+    "descption, type, amount,currency"
+  );
+
+  // Update data
+  if (newData) {
+    const [description, type, amount, currency] = newData
+      .split(",")
+      .map((item) => item.trim());
+    if (description && type && amount && currency) {
+      transData[index] = {
+        description,
+        type,
+        amountt: Number(amount),
+        currency,
+      };
+      localStorage.setItem("t-lists", JSON.stringify(transData));
+      histories.innerHTML = "";
+      displayData(transData);
+    } else {
+      alert(
+        "Invalid input! Please providedescription, type, amount, and currency separated by commas."
+      );
+    }
+  }
 }

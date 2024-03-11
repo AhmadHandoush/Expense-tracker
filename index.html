@@ -30,7 +30,7 @@
       </div>
       <div class="total" id="total">
         <div>
-          <span>total incomes:</span>
+          <span>total: </span>
           <span class="total-amount" id="total-amount"></span>
         </div>
       </div>
@@ -43,7 +43,9 @@
               <span class="filter-title"
                 ><i class="fa-solid fa-filter"></i> Filter By:</span
               >
-              <select name="" id="filter-currency"></select>
+              <select name="" id="filter-currency">
+                <option value="">Choose</option>
+              </select>
               <button class="all-filter" id="all-filter">All</button
               ><button
                 class="incomes-filter"
@@ -93,7 +95,6 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./scripts/main.js"></script>
   </body>
 </html>
